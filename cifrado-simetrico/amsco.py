@@ -8,40 +8,40 @@ def main():
     file.close()
     mssg = met.removeSpaces(mssg)
     key = input("Ingrese la clave: ")
-    #splittingMessage(mssg)
     ciphertext = amsco(mssg, key.upper())
-    print(ciphertext)
+    print("Texto cifrado:", ciphertext)
 
-def splittingMessage(mssg):
+def splittingMessage(mssg, ncol):
     mssg_len = len(mssg)
     mat = []
     ngram = 1
     i = 0
     while i < mssg_len:
         row = []
-        for j in range(5):
+        for j in range(ncol):
             row.append(mssg[i:i+ngram])
             if ngram == 1: ngram = 2; i+=1
             else : ngram = 1; i+=2
         mat.append(row)
     return mat
 
+def printMat(mssg):
+    print("Mensaje dividido:")
+    for i in range(len(mssg)):
+        print(mssg[i])
+
 def amsco(mssg, key):
     key_len = len(key)
     nkey = []
     for i in range(key_len):
         nkey.append(LETRAS.find(key[i]))
-    print(nkey)
     nkey2 = sorted(nkey)
-    print(nkey2)
-    #nkey2 = ''.join(nkey2)
-    mssg = splittingMessage(mssg)
+    mssg = splittingMessage(mssg, key_len)
+    printMat(mssg)
     mssg_rows = len(mssg)
-    print(mssg)
     ciphertext = []
     for i in range(key_len):
         column = nkey.index(nkey2[i])
-        print(column)
         for j in range(mssg_rows):
             if mssg[j][column] != None:
                 ciphertext.append(mssg[j][column])
