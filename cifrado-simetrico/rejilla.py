@@ -1,17 +1,20 @@
 import methods as met
-
+import numpy as np
 LETRAS = ("ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
 
 def main():
-    #name
     file = open('mensaje.txt','r',encoding='utf-8')
     mssg = file.read()
     file.close()
-    #splittingMessage(mssg)
     rejilla = [[0, 0],[0, 2],[1, 4],[2, 1],[2, 3],[3, 1],[4, 5],[5, 2],[5, 4]]
     mssg = met.removeSpaces(mssg)
-    cryptoGrid(mssg, rejilla)
-    rotate(rejilla)
+    encrypt(mssg, rejilla)
+
+    file = open('cifrado.txt','r',encoding='utf-8')
+    enc_mssg = file.read()
+    file.close()
+    print("Mensaje descifrado:")
+    decipher(enc_mssg, rejilla)
 
 def splittingMessage(mssg):
     mssg_len = len(mssg)
@@ -39,13 +42,18 @@ def rotate(rejilla):
         new_rejilla.append([row, col])
     return new_rejilla
 
-def cryptoGrid(mssg, rejilla):
+def printMat(mssg):
+    print("Mensaje dividido:")
+    for i in range(len(mssg)):
+        print(mssg[i])
+
+def encrypt(mssg, rejilla):
     text = splittingMessage(mssg)
     ciphertext = []
     
     for i in range(1):
         textn = text[i]
-        print(textn)
+        printMat(textn)
         for k in range(4):
             for j in range(len(rejilla)):
                 ciphertext.append(textn[rejilla[j][0]][rejilla[j][1]])
@@ -53,6 +61,22 @@ def cryptoGrid(mssg, rejilla):
     ciphertext = ''.join(ciphertext)
     print(ciphertext)
     
+def decipher(enc_mssg, rejilla):
+    mssg = [['X']*6]*6
+    mssg = np.array(mssg)
+    #enc_mssg = splittingMessage(enc_mssg)
+    #print(mssg)
+    rej_len = len(rejilla)
+    #while k < len(enc_mssg):
+    for i in range(4):
+        for j in range(rej_len):
+            #mssg[rejilla[j][0]][rejilla[j][1]] = enc_mssg[j+i*9]
+            mssg[rejilla[j][0], rejilla[j][1]] = enc_mssg[j+i*9]
+        #print(mssg[0])
+        #print(mssg)
+        rejilla = sorted(rotate(rejilla))
+    #mssg[5][5] = 'X'
+    print(mssg)
 
 if __name__ == '__main__' :
     main()
