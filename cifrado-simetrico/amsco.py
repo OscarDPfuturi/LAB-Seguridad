@@ -1,27 +1,50 @@
-import methods as met
-
 LETRAS = ("ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
 
 def main():
     file = open('mensaje.txt','r',encoding='utf-8')
     mssg = file.read()
     file.close()
-    mssg = met.removeSpaces(mssg)
+    mssg = removeSpaces(mssg)
     key = input("Ingrese la clave: ")
     ciphertext = amsco(mssg, key.upper())
     print("Texto cifrado:", ciphertext)
+
+def removeSpaces(mssg):
+    mssg_len = len(mssg)
+    mssg2 = []
+    for i in range(mssg_len):
+        if mssg[i] != ' ' and mssg[i] != '\n':
+            mssg2.append(mssg[i])
+    mssg2 = ''.join(mssg2)
+    return mssg2
 
 def splittingMessage(mssg, ncol):
     mssg_len = len(mssg)
     mat = []
     ngram = 1
     i = 0
+    print(mssg_len)
     while i < mssg_len:
         row = []
         for j in range(ncol):
-            row.append(mssg[i:i+ngram])
-            if ngram == 1: ngram = 2; i+=1
-            else : ngram = 1; i+=2
+            if ngram == 1:
+                if i < mssg_len:
+                    row.append(mssg[i])
+                else :
+                    row.append('_')
+                ngram = 2; i+=1
+            else :
+                if mssg_len - i == 1:
+                    row.append(mssg[i] + '_')
+                elif mssg_len - i > 1:
+                    row.append(mssg[i:i+2])
+                else :
+                    row.append('__')
+                ngram = 1;
+                i+=2
+        if ncol%2 == 0:
+            if ngram == 1: ngram = 2
+            else : ngram = 1
         mat.append(row)
     return mat
 
