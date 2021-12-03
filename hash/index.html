@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASH</title>
+    <!-- Módulos Hash-->
+    <script src="https://cdn.jsdelivr.net/npm/js-md4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Funciones HASH</h1>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a id="link1" class="nav-link" href="#">MD4</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="link2" class="nav-link" href="#">MD5</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="link3" class="nav-link" href="#">SHA1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="link4" class="nav-link" href="#">SHA256</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="link5" class="nav-link" href="#">HMAC</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid row">
+            <form class="col-6">
+                <div class="form-group">
+                    <label class="form-label mt-4" for="plain-text">Texto plano</label>
+                    <textarea name="plain-text" id="plain-text" class="form-control" cols="10" rows="5"></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit" id="generator-btn">Generar</button>
+            </form>
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="form-label mt-4" for="encrypted-text">Texto generado con <span id="hash-name"></span> Hash</label>
+                    <textarea name="encrypted-text" id="encrypted-text" class="form-control" cols="10" rows="5" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
