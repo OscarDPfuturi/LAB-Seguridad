@@ -7,7 +7,11 @@ function main(method = 2) {
         case 2: hash = CryptoJS.MD5(text); break;
         case 3: hash = CryptoJS.SHA1(text); break;
         case 4: hash = CryptoJS.SHA256(text); break;
-        case 5: hash = CryptoJS.HmacSHA256(text); break;
+        case 5:
+            var key = $('#key-btn').val();
+            hash = CryptoJS.HmacSHA256(text, key);
+            break;
+        case 6: hash = CryptoJS.SHA512(text); break;
     }
     encrypted.val(hash);
 }
@@ -28,13 +32,18 @@ function navigation() {
         $(this).on('click', function (e) {
             var page = $(this).attr('id');
             setActive(page);
+            $('#key-block').hide();
 
             switch (page) {
                 case 'link1': $('#hash-name').text('MD4'); break;
                 case 'link2': $('#hash-name').text('MD5'); break;
                 case 'link3': $('#hash-name').text('SHA1'); break;
                 case 'link4': $('#hash-name').text('SHA256'); break;
-                case 'link5': $('#hash-name').text('HMAC'); break;
+                case 'link5':
+                    $('#hash-name').text('HMAC');
+                    $('#key-block').show();
+                    break;
+                case 'link6': $('#hash-name').text('SHA512'); break;
                 default: $('#hash-name').text('MD4'); break;
             }
         });
